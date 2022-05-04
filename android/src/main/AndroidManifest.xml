@@ -9,5 +9,6 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:name=".QRScanActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
+        <meta-data android:name="flutterEmbedding" android:value="2"/>
     </application>
 </manifest>

@@ -37,8 +37,9 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry;
 import io.flutter.plugin.common.PluginRegistry.ActivityResultListener;
+import io.flutter.embedding.engine.plugins;
 
-public class QRCodeReaderPlugin implements MethodCallHandler, ActivityResultListener, PluginRegistry.RequestPermissionsResultListener {
+public class QRCodeReaderPlugin implements FlutterPlugin, MethodCallHandler, ActivityResultListener, PluginRegistry.RequestPermissionsResultListener {
     private static final String CHANNEL = "qrcode_reader";
 
     private static final int REQUEST_CODE_SCAN_ACTIVITY = 2777;
@@ -52,6 +53,20 @@ public class QRCodeReaderPlugin implements MethodCallHandler, ActivityResultList
 
     public QRCodeReaderPlugin(Activity activity) {
         this.activity = activity;
+    }
+
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+        final MethodChannel channel = new MethodChannel(registrar.messenger(), CHANNEL);
+        final QRCodeReaderPlugin instance = new QRCodeReaderPlugin(registrar.activity());
+        registrar.addActivityResultListener(instance);
+        registrar.addRequestPermissionsResultListener(instance);
+        channel.setMethodCallHandler(instance);
+    }
+
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+        // TODO: your plugin is no longer attached to a Flutter experience.
     }
 
     public static void registerWith(PluginRegistry.Registrar registrar) {

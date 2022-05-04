@@ -20,14 +20,14 @@
 
 package com.matheusvillela.flutter.plugins.qrcodereader;
 
-import android.app.Activity;
+import io.flutter.embedding.android.FlutterActivity;
 import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 
-public class QRScanActivity extends Activity implements QRCodeReaderView.OnQRCodeReadListener {
+public class QRScanActivity extends FlutterActivity implements QRCodeReaderView.OnQRCodeReadListener {
 
     private boolean qrRead;
     private QRCodeReaderView view;
